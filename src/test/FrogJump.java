@@ -21,6 +21,9 @@ public class FrogJump {
         int[] dp = new int[n + 1];
         dp[1]=1;
         dp[2]=2;
+
+        // 因为每次只是固定使用前两个变量，所以，我们可以不使用数组
+        // 是、而是开两个参数，存储前两个变量，从而缩减空间消耗
         for (int i = 3; i <=n; i++) {
             dp[i]=dp[i-2]+dp[i-1];
         }
