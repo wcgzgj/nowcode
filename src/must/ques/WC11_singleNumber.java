@@ -11,7 +11,8 @@ import java.util.Arrays;
  **/
 public class WC11_singleNumber {
     public static void main(String[] args) {
-
+        WC11_singleNumber solu = new WC11_singleNumber();
+        solu.singleNumber(new int[]{2,2,3,2});
     }
 
     /**
@@ -24,10 +25,16 @@ public class WC11_singleNumber {
         Arrays.sort(A);
         int curr = -1;
         int currCount = 0;
-        //for (int i = 0; i < A.length; i++) {
-        //    if (currCount==1 || )
-        //}
-
+        for (int i = 0; i < A.length; i++) {
+            if (curr!=A[i] && currCount==1) return curr;
+            if (i==A.length-1) return A[A.length-1];
+            if (curr==A[i]) {
+                currCount++;
+            } else {
+                currCount=1;
+            }
+            curr=A[i];
+        }
         return -1;
     }
 }
