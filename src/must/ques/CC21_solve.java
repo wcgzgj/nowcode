@@ -18,18 +18,18 @@ import java.util.Arrays;
  **/
 public class CC21_solve {
     public static void main(String[] args) {
-            //char[][] board = {  {'X','X','X','X'},
-            //                    {'X','O','O','X'},
-            //                    {'X','X','O','X'},
-            //                    {'O','X','X','X'}};
+            char[][] board = {  {'X','X','X','X'},
+                                {'X','O','O','X'},
+                                {'X','X','O','X'},
+                                {'O','X','X','X'}};
         //char[][] board ={{'O','O'},
         //                {'O','O'}};
-        char[][] board =   {{'O','O','O','O','X','X'},
-                            {'O','O','O','O','O','O'},
-                            {'O','X','O','X','O','O'},
-                            {'O','X','O','O','X','O'}, // 照理说，这一行第四个元素不应该被修改的，但是，他却被修改了！！
-                            {'O','X','O','X','O','O'},
-                            {'O','X','O','O','O','O'}};
+        //char[][] board =   {{'O','O','O','O','X','X'},
+        //                    {'O','O','O','O','O','O'},
+        //                    {'O','X','O','X','O','O'},
+        //                    {'O','X','O','O','X','O'}, // 照理说，这一行第四个元素不应该被修改的，但是，他却被修改了！！
+        //                    {'O','X','O','X','O','O'},
+        //                    {'O','X','O','O','O','O'}};
         CC21_solve solu = new CC21_solve();
         solu.solve(board);
         int R = board.length;
@@ -42,43 +42,93 @@ public class CC21_solve {
         }
     }
 
+    //public void solve(char[][] board) {
+    //    int R = board.length;
+    //    if (R==0) return;
+    //    int C = board[0].length;
+    //    if (C==0) return;
+    //    boolean[][] visited = new boolean[R][C];
+    //    for (int i = 0; i <R; i++) {
+    //        for (int j = 0; j < C; j++) {
+    //            // 当前位置为 O 且还没有被访问过
+    //            // （没访问是因为我们之前的 dfs 操作，可能已经让改点被访问过了）
+    //            if (board[i][j]=='O' && !visited[i][j]) {
+    //                dfs(visited,board,i,j);
+    //            }
+    //        }
+    //    }
+    //}
+    //
+    //public boolean dfs(boolean[][]visited,char[][]board,int r,int c) {
+    //    int R = board.length;
+    //    int C = board[0].length;
+    //    // 如果 O 界限的边界触碰到 board 边缘，说明不符合条件
+    //    if (r<0 || r>=R || c<0 || c>=C) return false;
+    //    // 如果是 X 或者是已经访问过了，那么认为这个位置是可行的
+    //    if (board[r][c]=='X' || visited[r][c]) return true;
+    //
+    //    visited[r][c]=true;
+    //
+    //    int[] rs = {0,0,1,-1};
+    //    int[] cs = {1,-1,0,0};
+    //    boolean res = true;
+    //    for (int i = 0; i < 4; i++) {
+    //        //这里要保证所有方向都符合条件
+    //        res = res && dfs(visited,board,r+rs[i],c+cs[i]);
+    //    }
+    //    if (res) {
+    //        board[r][c]='X';
+    //    }
+    //    return res;
+    //}
+
+    // 这里我们采用思路2
+    // 对所有处于边间的 O 进行深度遍历
     public void solve(char[][] board) {
+        if (board==null) return;
         int R = board.length;
         if (R==0) return;
         int C = board[0].length;
-        if (C==0) return;
         boolean[][] visited = new boolean[R][C];
-        for (int i = 0; i <R; i++) {
+        for (int i = 0; i < R; i++) {
             for (int j = 0; j < C; j++) {
-                // 当前位置为 O 且还没有被访问过
-                // （没访问是因为我们之前的 dfs 操作，可能已经让改点被访问过了）
-                if (board[i][j]=='O' && !visited[i][j]) {
-                    dfs(visited,board,i,j);
+                char currSim = board[i][j];
+                if (currSim=='X') visited[i][j]=true;
+                else {
+                    // 发现了处于边界的 O
+                    if (i==0 || i==R-1 || j==0 || j==C-1) {
+                        dfs(visited,board,i,j);
+                    }
+                }
+            }
+        }
+
+        // 将符合要求的 O，修改为 X
+        for (int i = 0; i < R; i++) {
+            for (int j = 0; j < C; j++) {
+                if (!visited[i][j]) {
+                    board[i][j]='X';
                 }
             }
         }
     }
 
-    public boolean dfs(boolean[][]visited,char[][]board,int r,int c) {
+    // 深度遍历，标记所有不符合要求的 O 的位置
+    public void dfs(boolean[][] visited,char[][]board,int r,int c) {
         int R = board.length;
         int C = board[0].length;
-        // 如果 O 界限的边界触碰到 board 边缘，说明不符合条件
-        if (r<0 || r>=R || c<0 || c>=C) return false;
-        // 如果是 X 或者是已经访问过了，那么认为这个位置是可行的
-        if (board[r][c]=='X' || visited[r][c]) return true;
+        if (r<0 || r>=R || c<0 || c>=C) return;
+        // dfs 终点
+        if (board[r][c]=='X') return;
+        if (visited[r][c]) return;
 
         visited[r][c]=true;
 
         int[] rs = {0,0,1,-1};
         int[] cs = {1,-1,0,0};
-        boolean res = true;
         for (int i = 0; i < 4; i++) {
-            //这里要保证所有方向都符合条件
-            res = res && dfs(visited,board,r+rs[i],c+cs[i]);
+            dfs(visited,board,r+rs[i],c+cs[i]);
         }
-        if (res) {
-            board[r][c]='X';
-        }
-        return res;
+
     }
 }
