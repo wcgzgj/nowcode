@@ -28,6 +28,7 @@ public class leetcode121_maxProfit {
             if (prices[i]<minPrice) minPrice=prices[i];
             else maxValue=Math.max(maxValue,prices[i]-minPrice);
         }
+        // git test
         return maxValue>0?maxValue:0;
     }
 }
