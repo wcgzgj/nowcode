@@ -61,38 +61,25 @@ public class NC51_mergeKLists {
     //}
 
 
-    // 方法2：利用二分的思想
+    // 方法2：利用分治的思想
     public ListNode mergeKLists(ArrayList<ListNode> lists) {
-        if (lists==null || lists.size()==0) return null;
-        return mergeSort(lists,0,lists.size()-1);
+        return mergeSort(0,lists.size()-1,lists);
     }
 
-    private ListNode mergeSort(ArrayList<ListNode> lists,int l,int r) {
-        if (l==r) return lists.get(l);
-        if (l>r) return null;
-        int mid = (l + r) / 2;
-        return merge(mergeSort(lists,l,mid),mergeSort(lists,mid+1,r));
+
+    public ListNode mergeSort(int low,int high,ArrayList<ListNode> lists){
+        if (low==high) return lists.get(low);
+        if (low>high) return null;
+        int mid = (low + high)/2;
+        return merge(mergeSort(low,mid,lists),mergeSort(mid+1,high,lists));
     }
 
-    // 归并两个有序链表
-    private ListNode merge(ListNode n1,ListNode n2) {
+    public ListNode merge(ListNode n1,ListNode n2) {
         ListNode hair = new ListNode(-1);
         ListNode tail = hair;
         while (n1!=null && n2!=null) {
-            if (n1.val<=n2.val) {
-                tail.next=n1;
-                n1=n1.next;
-            } else {
-                tail.next=n2;
-                n2=n2.next;
-            }
-            tail=tail.next;
+
         }
-        if (n1 == null) {
-            tail.next = n2;
-        } else {
-            tail.next = n1;
-        }
-        return hair.next;
+        return null;
     }
 }
