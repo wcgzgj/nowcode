@@ -30,11 +30,12 @@ public class NC58_findError {
      *
      */
     public int[] findError (TreeNode root) {
-        int[] res = new int[2];
         List<Integer> nums = new ArrayList<>();
+        dfs(nums,root);
         return findErr(nums);
     }
 
+    // 获取中序遍历的序列
     public void dfs(List<Integer>nums,TreeNode root) {
         if (root==null) return;
         dfs(nums,root.left);
@@ -44,18 +45,20 @@ public class NC58_findError {
 
     public int[] findErr(List<Integer>nums) {
         int[] res = new int[2];
-        int count=0;
-        for (int i = 0; i < nums.size(); i++) {
-            if (count>=2) return res;
-            if (i>0 && nums.get(i)<nums.get(i-1)) {
-                res[0]=nums.get(i);
-                count++;
-            }
-            if (i<nums.size()-2 && nums.get(i)>nums.get(i+1)) {
-                res[1]=nums.get(i);
-                count++;
+        int first = -1;
+        int second = -1;
+        for (int i = 0; i < nums.size()-1; i++) {
+            if (nums.get(i)>nums.get(i+1)) {
+                if (first==-1) {
+                    first=i;
+                    second=i+1;
+                } else {
+                    second=i+1;
+                }
             }
         }
+        res[0]=nums.get(second);
+        res[1]=nums.get(first);
         return res;
     }
 
