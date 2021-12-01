@@ -16,17 +16,14 @@ public class NC144_subsequence {
     public long subsequence (int n, int[] array) {
         if (array.length==1) return new Long(Math.max(0,array[0]));
         if (array.length==2) return new Long(Math.max(0,Math.max(array[0],array[1])));
-        long[] dp = new long[n];
-        dp[0]=array[0];
-        dp[1]=array[1];
-        long res = Math.max(0,Math.max(dp[0], dp[1]));
+        long pre = array[0];
+        long curr = array[1];
+        long res = Math.max(0,Math.max(pre,curr));
         for (int i = 2; i <n ; i++) {
-            long tmp = Long.MIN_VALUE;
-            for (int j = 0; j <=i-2 ; j++) {
-                tmp = Math.max(tmp,dp[j]);
-            }
-            dp[i]=tmp+array[i];
-            res = Math.max(res,dp[i]);
+            long newPre = Math.max(curr, pre + array[i]);
+            res=Math.max(res,newPre);
+            pre=curr;
+            curr=newPre;
         }
         return new Long(Math.max(0,res));
     }
