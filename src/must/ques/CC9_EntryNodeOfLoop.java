@@ -2,6 +2,8 @@ package must.ques;
 
 import must.domain.ListNode;
 
+import java.util.ArrayList;
+
 /**
  * @ClassName CC9_EntryNodeOfLoop
  * @Description TODO
