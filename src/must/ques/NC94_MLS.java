@@ -1,6 +1,7 @@
 package must.ques;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * @ClassName NC94_MLS
@@ -45,4 +46,5 @@ public class NC94_MLS {
         if (i==arr.length-1) return -1;
         return i+1;
     }
+
 }
