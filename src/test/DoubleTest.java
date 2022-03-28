@@ -9,8 +9,8 @@ package test;
  **/
 public class DoubleTest {
     public static void main(String[] args) {
-        double num1 = 0.3;
-        double num2 = 0.2;
+        double num1 = 0.4;
+        double num2 = 0.1;
         System.out.println(num1 - num2);
     }
 }
