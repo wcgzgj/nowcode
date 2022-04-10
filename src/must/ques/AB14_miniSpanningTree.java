@@ -1,5 +1,9 @@
 package must.ques;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @ClassName AB14_miniSpanningTree
  * @Description TODO
@@ -9,29 +13,44 @@ package must.ques;
  **/
 public class AB14_miniSpanningTree {
     public static void main(String[] args) {
-
+        AB14_miniSpanningTree solu = new AB14_miniSpanningTree();
+        /**
+         * 6,10
+         * [5,3,8],[1,3,6],[2,5,4],[2,3,5],[4,5,6],[3,4,3],[2,4,8],[1,2,2],[1,4,5],[5,6,2]
+         */
+        int[][] cost = new int[][]{
+                {5,3,8}, {1,3,6},{2,5,4},{2,3,5},{4,5,6},{3,4,3},{2,4,8},{1,2,2},{1,4,5},{5,6,2}
+        };
+        System.out.println(solu.miniSpanningTree(6,10,cost));
     }
 
-    // 记录最终记录的值
-    private int minRes = Integer.MAX_VALUE;
-
     /**
-     * 一个有 n 户人家的村庄，有 m 条路相互连接着。村里现在要修路，每条路都有一个成本价格，现在请你帮忙计算下，最少需要花费多少钱，就能让这 n 户人家连接起来。
-     *
-     * costcost 为一个二维数组，每个元素是一个长度为 3 的一维数组 aa ， a[0] 和 a[1] 表示村庄 a[0] 和村庄 a[1] 有一条路，修这条路的成本价格为 a[2] .
-     *
-     * 每户之间可能有多条道路连接，但不可能自己与自己相连
-     *
-     * 方法1：回溯法
-     *
+     * 方法1：克鲁斯卡（贪心）
+     * 先将所有路径权值排序，然后
      * @param n
      * @param m
      * @param cost
      * @return
      */
     public int miniSpanningTree (int n, int m, int[][] cost) {
-        boolean[] visited = new boolean[n];
-        return -1;
+        int minCost = 0;
+        // 使用 visited 数组，可以保证所有位置都能访问，但是不能保证联通！！！！
+        // 这里可以考虑使用并查集！！
+        boolean[] visited = new boolean[n+1];
+        List<int[]> list = new ArrayList<>();
+        for (int[] elem : cost) {
+            list.add(elem);
+        }
+        list.sort((o1,o2)->o1[2]-o2[2]);
+        for (int[] elem : list) {
+            if (!visited[elem[0]] || !visited[elem[1]]) {
+                visited[elem[0]]=true;
+                visited[elem[1]]=true;
+                minCost+=elem[2];
+            }
+        }
+        System.out.println("visited数组情况为："+ Arrays.toString(visited));
+        return minCost;
     }
 
 }
