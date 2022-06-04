@@ -1,25 +1,22 @@
-package test;
-
-import must.util.RandomData;
-
-import java.util.Arrays;
+package must.ques;
 
 /**
- * @ClassName SortTest
+ * @ClassName BM20_InversePairs
  * @Description TODO
  * @Author faro_z
- * @Date 2022/6/4 15:06
+ * @Date 2022/6/4 15:33
  * @Version 1.0
  **/
-public class SortTest {
-    public static void main(String[] args) {
-        int[] randomArray = RandomData.getRandomArray(10, 100);
-        System.out.println(Arrays.toString(randomArray));
-        mergeSort(randomArray,0,randomArray.length-1);
-        System.out.println(Arrays.toString(randomArray));
+public class BM20_InversePairs {
+    private int res = 0;
+    // 取模，防溢出
+    private static final int MOD = 1000000007;
+    public int InversePairs(int [] array) {
+        mergeSort(array,0,array.length-1);
+        return res;
     }
 
-    public static void mergeSort(int[] arr,int l,int r) {
+    private void mergeSort(int[] arr,int l,int r) {
         if (l==r) return;
         int mid = (l + r) >>1;
         mergeSort(arr,l,mid);
@@ -28,14 +25,19 @@ public class SortTest {
     }
 
     // 归并
-    private static void merge(int[]arr,int ls,int le,int re) {
+    private void merge(int[]arr,int ls,int le,int re) {
         int[] tmp = new int[re - ls + 1];
         int l = ls;
         int r = le + 1;
         int index = 0;
         while (l<=le && r<=re) {
             if (arr[l]<=arr[r]) tmp[index++]=arr[l++];
-            else tmp[index++]=arr[r++];
+            // arr[l] > arr[r]
+            else {
+                tmp[index++]=arr[r++];
+                res =res +( le - l+ 1);
+                res = res%MOD;
+            }
         }
         while (l<=le) tmp[index++]=arr[l++];
         while (r<=re) tmp[index++]=arr[r++];
@@ -44,6 +46,4 @@ public class SortTest {
             arr[i]=tmp[index++];
         }
     }
-
-
 }

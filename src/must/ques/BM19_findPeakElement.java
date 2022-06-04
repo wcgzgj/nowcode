@@ -39,6 +39,7 @@ public class BM19_findPeakElement {
                 l = mid+1;
             }
         }
+        // 因为mid是与mid+1比较的，所以最后就算得到 mid 是 peak，r都会收拢到 mid 即 Peak 的位置，所以我们要返回 r
         return r;
     }
 
