@@ -18,17 +18,17 @@ public class BM59_Nqueen {
         System.out.println(solu.Nqueen(8));
     }
 
-    private static int counter =0;
+    //private static int counter =0;
     public int Nqueen (int n) {
         List<Pos> pool  = new ArrayList<>();
-        //Integer counter = new Integer(0);
-        backtrack(n,pool,1);
+        Integer counter = new Integer(0);
+        backtrack(counter,n,pool,1);
         return counter;
     }
 
-    private void backtrack (int n,List<Pos>pool,int currRow) {
+    private void backtrack (Integer counter,int n,List<Pos>pool,int currRow) {
         if (currRow==n+1) {
-            counter++;
+            counter=counter+1;
             return;
         }
         for (int c = 1; c <=n ; c++) {
@@ -36,7 +36,7 @@ public class BM59_Nqueen {
                 continue;
             }
             pool.add(new Pos(currRow,c));
-            backtrack(n,pool,currRow+1);
+            backtrack(counter,n,pool,currRow+1);
             pool.remove(pool.size()-1);
         }
     }
