@@ -92,6 +92,8 @@ public class BM61_solve {
 
     private int backtrack(int[][]memo,int[][]matrix,int r,int c) {
         if (memo[r][c]!=0) return memo[r][c];
+        // 当前为0，说明之前没有访问过
+        // 但是这次访问到了，所以这个自增代表访问到自己
         ++memo[r][c];
         int R = matrix.length;
         int C = matrix[0].length;
