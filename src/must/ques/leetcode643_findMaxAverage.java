@@ -17,26 +17,20 @@ public class leetcode643_findMaxAverage {
     }
 
     public double findMaxAverage(int[] nums, int k) {
-        if (nums==null || nums.length==0 || nums.length<k) return 0;
+        if (nums == null || nums.length == 0 || nums.length < k) return 0;
         double sum = 0d;
         double max = Double.NEGATIVE_INFINITY;
         for (int i = 0; i < k; i++) {
-            sum+=nums[i];
+            sum += nums[i];
         }
-        max = Math.max(sum/k,max);
+        max = Math.max(sum / k, max);
         int r = k;
-        while (r<nums.length) {
-            sum+=nums[r];
-            sum-=nums[r-k];
-            max = Math.max(sum/k,max);
+        while (r < nums.length) {
+            sum += nums[r];
+            sum -= nums[r - k];
+            max = Math.max(sum / k, max);
             ++r;
         }
         return max;
     }
-
-
-    //public double findMaxAverage(int[] nums, int k) {
-    //    if (nums==null || nums.length==0 || nums.length<k) return 0;
-    //
-    //}
 }
