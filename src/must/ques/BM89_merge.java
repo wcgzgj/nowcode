@@ -15,21 +15,17 @@ public class BM89_merge {
     }
 
     public ArrayList<Interval> merge(ArrayList<Interval> intervals) {
+        intervals.sort((o1,o2) -> o1.start - o2.start);
         ArrayList<Interval> res = new ArrayList<>();
-        if (intervals==null || intervals.size()==0) {
-            return res;
-        }
-        intervals.sort((o1, o2) -> o1.start-o2.start);
-        int top = intervals.get(0).end;
-        res.add(intervals.get(0));
-        for (int i = 1; i < intervals.size() ; i++) {
-            Interval curr = intervals.get(i);
-            if (curr.start<=top) {
-                top = Math.max(curr.end,top);
-                res.get(res.size()-1).end = top;
+        for (Interval interval : intervals) {
+            if (res.isEmpty()) {
+                res.add(interval);
             } else {
-                res.add(curr);
-                top = Math.max(curr.end,top);
+                if (interval.start<=res.get(res.size()-1).end) {
+                    res.get(res.size()-1).end = Math.max(interval.end,res.get(res.size()-1).end);
+                } else {
+                    res.add(interval);
+                }
             }
         }
         return res;
