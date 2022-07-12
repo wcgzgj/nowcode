@@ -14,41 +14,6 @@ public class BM90_minWindow {
     public static void main(String[] args) {
     }
 
-    // md 写不下去了
-    //public String minWindow (String S, String T) {
-    //    char[] source = S.toCharArray();
-    //    int[] map = new int[(int) 'z' + 1];
-    //    for (int i = 0; i < T.length(); i++) {
-    //        map[(int) T.charAt(i)]++;
-    //    }
-    //    for (int i = 0; i < map.length; i++) {
-    //        if (map[i]==0) map[i]=-1;
-    //    }
-    //    int match = 0;
-    //    int minLen = Integer.MAX_VALUE;
-    //    String res = "";
-    //    int l=0,r=0;
-    //    while (r<source.length) {
-    //        // 出现匹配的答案，结果现行留存，l++
-    //        if (match==T.length()) {
-    //            if (minLen>r-l+1) {
-    //                minLen = r-l+1;
-    //                res = S.substring(l,r+1);
-    //            }
-    //            // 左指针右移
-    //            l++;
-    //            if (map[source[l-1]]!=-1) {
-    //                map[source[l-1]]--;
-    //            }
-    //        }
-    //        if (map[source[r]]!=-1) {
-    //            map[source[r]]--;
-    //            ++match;
-    //        }
-    //
-    //    }
-    //}
-
     public String minWindow (String S, String T) {
         char[] source = S.toCharArray();
         Map<Character, Integer> map = new HashMap<>();
