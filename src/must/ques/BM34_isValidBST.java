@@ -42,6 +42,8 @@ public class BM34_isValidBST {
     //}
 
     // 好递归 :)
+    // 具体实现方式是划定范围，然后在递归的过程中不断缩范围
+    // 可以看成是某种意义上的回溯
     public boolean isValidBST (TreeNode root) {
         return inorder(root,Integer.MIN_VALUE,Integer.MAX_VALUE);
     }
