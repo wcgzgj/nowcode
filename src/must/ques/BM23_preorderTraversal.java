@@ -2,9 +2,7 @@ package must.ques;
 
 import must.domain.TreeNode;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.Stack;
 
 /**
@@ -35,21 +33,40 @@ public class BM23_preorderTraversal {
     //}
 
     // 方法2：使用栈
+    //public int[] preorderTraversal (TreeNode root) {
+    //    Stack<TreeNode> stack = new Stack<>();
+    //    List<Integer> res = new ArrayList<>();
+    //    if (root==null) return new int[0];
+    //    stack.push(root);
+    //    while (!stack.isEmpty()) {
+    //        TreeNode tmp = stack.pop();
+    //        res.add(tmp.val);
+    //        if (tmp.right!=null) stack.push(tmp.right);
+    //        if (tmp.left!=null) stack.push(tmp.left);
+    //    }
+    //    int[] resArr = new int[res.size()];
+    //    for (int i = 0; i < res.size(); i++) {
+    //        resArr[i]=res.get(i);
+    //    }
+    //    return resArr;
+    //}
+
+    // 使用栈（复习）
     public int[] preorderTraversal (TreeNode root) {
-        Stack<TreeNode> stack = new Stack<>();
-        List<Integer> res = new ArrayList<>();
         if (root==null) return new int[0];
-        stack.push(root);
+        List<Integer> res = new ArrayList<>();
+        Deque<TreeNode> stack = new LinkedList<>();
+        stack.offerLast(root);
         while (!stack.isEmpty()) {
-            TreeNode tmp = stack.pop();
+            TreeNode tmp = stack.pollLast();
             res.add(tmp.val);
-            if (tmp.right!=null) stack.push(tmp.right);
-            if (tmp.left!=null) stack.push(tmp.left);
+            if (tmp.right!=null) stack.offerLast(tmp.right);
+            if (tmp.left!=null) stack.offerLast(tmp.left);
         }
-        int[] resArr = new int[res.size()];
-        for (int i = 0; i < res.size(); i++) {
-            resArr[i]=res.get(i);
+        int[] arr = new int[res.size()];
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = res.get(i);
         }
-        return resArr;
+        return arr;
     }
 }

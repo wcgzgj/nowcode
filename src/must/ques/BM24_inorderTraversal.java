@@ -2,8 +2,7 @@ package must.ques;
 
 import must.domain.TreeNode;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.Stack;
 
 /**
@@ -38,29 +37,23 @@ public class BM24_inorderTraversal {
     //}
 
     public int[] inorderTraversal (TreeNode root) {
-        //添加遍历结果的数组
-        List<Integer> list = new ArrayList();
-        Stack<TreeNode> s = new Stack<>();
-        //空树返回空数组
-        if(root == null)
-            return new int[0];
-        //当树节点不为空或栈中有节点时
-        while(root != null || !s.isEmpty()){
-            //每次找到最左节点
-            while(root != null){
-                s.push(root);
-                root = root.left;
+        if (root==null) return new int[0];
+        Deque<TreeNode> stack = new LinkedList<>();
+        List<Integer> res = new ArrayList<>();
+        TreeNode curr = root;
+        while (curr!=null || !stack.isEmpty()) {
+            while (curr!=null) {
+                stack.offerLast(curr);
+                curr = curr.left;
             }
-            //访问该节点
-            TreeNode node = s.pop();
-            list.add(node.val);
-            //进入右节点
-            root = node.right;
+            curr = stack.pollLast();
+            res.add(curr.val);
+            curr = curr.right;
         }
-        //返回的结果
-        int[] res = new int[list.size()];
-        for(int i = 0; i < list.size(); i++)
-            res[i] = list.get(i);
-        return res;
+        int[] arr = new int[res.size()];
+        for (int i = 0; i < res.size(); i++) {
+            arr[i] = res.get(i);
+        }
+        return arr;
     }
 }
