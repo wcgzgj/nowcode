@@ -21,6 +21,7 @@ public class MaxQueueTest {
             queue.offer(elem);
         }
         while (!queue.isEmpty()) {
+            System.out.println(queue.peek());
             System.out.println(queue.poll());
         }
     }
